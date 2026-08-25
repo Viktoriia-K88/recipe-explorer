@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
+
+.container {
+  width: 100%;
+  max-width: calc($container-width + $container-padding * 2);
+  margin-inline: auto;
+  padding-inline: $container-padding;
+
+  @include tablet {
+    padding-inline: 24px;
+  }
+
+  @include mobile {
+    padding-inline: 16px;
+  }
+}

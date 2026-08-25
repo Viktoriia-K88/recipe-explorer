@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Recipe Explorer — discover recipes from around the world and save your favorites."
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>Recipe Explorer</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a
+          class="header__logo"
+          href="./index.html"
+          aria-label="Recipe Explorer home"
+        >
+          <img
+            class="header__logo-icon"
+            src="/src/assets/icons/astroid.svg"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <span class="header__logo-text">Recipe Explorer</span>
+        </a>
+
+        <nav class="header__nav" aria-label="Primary navigation">
+          <a
+            class="header__link header__link--active"
+            href="./index.html"
+            aria-current="page"
+          >
+            Explore
+          </a>
+
+          <a class="header__link" href="./favorites.html"> Favorites </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero__inner">
+          <div class="hero__content">
+            <h1 class="hero__title">
+              Find something
+              <br />
+              delicious today
+            </h1>
+
+            <p class="hero__description">
+              Explore recipes from around the world and save the ones you love.
+            </p>
+
+            <form class="search-form" role="search">
+              <label class="visually-hidden" for="recipe-search">
+                Search recipes by name
+              </label>
+
+              <input
+                class="search-form__input"
+                id="recipe-search"
+                name="search"
+                type="search"
+                placeholder="Search by recipe name..."
+                autocomplete="off"
+              />
+
+              <button class="search-form__button" type="submit">Search</button>
+            </form>
+          </div>
+
+          <div class="hero__media">
+            <div class="hero__media">
+              <img
+                class="hero__image"
+                src="/src/assets/images/hero-pasta.webp"
+                alt="Pasta served on a white plate"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="recipes" id="recipes">
+        <div class="container">
+          <div class="recipes__header">
+            <div class="recipes__heading">
+              <h2 class="recipes__title">Explore recipes</h2>
+
+              <p class="recipes__description">
+                Find a dish that matches your mood.
+              </p>
+            </div>
+
+            <button
+              class="button button--outline recipes__random-button"
+              id="random-recipe-button"
+              type="button"
+            >
+              Surprise me
+            </button>
+          </div>
+
+          <div class="recipes__toolbar">
+            <div class="recipes__filters">
+              <label class="filter">
+                <span class="visually-hidden">Filter by category</span>
+
+                <select
+                  class="filter__select"
+                  id="category-filter"
+                  name="category"
+                >
+                  <option value="">Category: All</option>
+                </select>
+              </label>
+
+              <label class="filter">
+                <span class="visually-hidden">Filter by cuisine</span>
+
+                <select
+                  class="filter__select"
+                  id="cuisine-filter"
+                  name="cuisine"
+                >
+                  <option value="">Cuisine: All</option>
+                </select>
+              </label>
+            </div>
+
+            <p class="recipes__count" id="recipes-count" aria-live="polite"></p>
+          </div>
+
+          <div class="recipes__grid" id="recipes-grid" aria-live="polite"></div>
+        </div>
+        <div class="recipes__actions">
+          <button
+            class="button button--outline recipes__load-more"
+            id="load-more-button"
+            type="button"
+            hidden
+          >
+            Load more
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

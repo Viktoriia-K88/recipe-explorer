@@ -1,0 +1,92 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
+
+.header {
+  border-bottom: 1px solid $color-border;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 76px;
+  }
+
+  &__logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    font-family: $font-family-heading;
+    font-size: 24px;
+    line-height: 1;
+    color: $color-text-primary;
+  }
+
+  &__logo-icon {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    transform: translateY(-1px);
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+
+  &__link {
+    position: relative;
+
+    font-size: 15px;
+    font-weight: 500;
+    color: $color-text-secondary;
+
+    transition: color 0.2s ease;
+
+    @include hover {
+      color: $color-text-primary;
+    }
+
+    &--active {
+      color: $color-text-primary;
+
+      &::after {
+        content: "";
+
+        position: absolute;
+        right: 0;
+        bottom: -8px;
+        left: 0;
+
+        height: 2px;
+
+        background-color: $color-accent;
+        border-radius: 2px;
+      }
+    }
+  }
+
+  @include mobile {
+    &__inner {
+      min-height: 68px;
+    }
+
+    &__logo {
+      font-size: 21px;
+    }
+
+    &__logo-icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    &__nav {
+      gap: 18px;
+    }
+
+    &__link {
+      font-size: 14px;
+    }
+  }
+}

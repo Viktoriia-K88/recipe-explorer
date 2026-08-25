@@ -1,0 +1,86 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
+
+.search-form {
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+  min-height: 60px;
+  margin-top: 36px;
+  padding: 6px;
+
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: 14px;
+
+  transition: border-color 0.2s ease;
+
+  &:focus-within {
+    border-color: $color-accent;
+  }
+
+  &__input {
+    width: 100%;
+    min-width: 0;
+    padding-inline: 14px;
+
+    color: $color-text-primary;
+
+    background-color: transparent;
+    border: 0;
+    outline: none;
+
+    &::placeholder {
+      color: $color-text-secondary;
+    }
+  }
+
+  &__button {
+    flex-shrink: 0;
+
+    min-height: 48px;
+    padding-inline: 24px;
+
+    font-weight: 500;
+    color: $color-surface;
+
+    background-color: $color-accent;
+    border-radius: 10px;
+
+    transition: background-color 0.2s ease;
+
+    @include hover {
+      background-color: $color-accent-hover;
+    }
+  }
+
+  @include mobile {
+    min-height: 56px;
+    margin-top: 28px;
+
+    &__input {
+      padding-inline: 10px;
+    }
+
+    &__button {
+      min-height: 44px;
+      padding-inline: 18px;
+    }
+  }
+
+  @include mobile-s {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 8px;
+
+    padding: 8px;
+
+    &__input {
+      min-height: 44px;
+    }
+
+    &__button {
+      width: 100%;
+    }
+  }
+}
