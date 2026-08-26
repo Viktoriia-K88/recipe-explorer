@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="description"
+      content="View recipe details, ingredients and cooking instructions."
+    />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>Recipe | Recipe Explorer</title>
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="container header__inner">
+        <a
+          class="header__logo"
+          href="./index.html"
+          aria-label="Recipe Explorer home"
+        >
+          <img
+            class="header__logo-icon"
+            src="/src/assets/icons/astroid.svg"
+            alt=""
+            aria-hidden="true"
+          />
+
+          <span class="header__logo-text"> Recipe Explorer </span>
+        </a>
+
+        <nav class="header__nav" aria-label="Primary navigation">
+          <a class="header__link" href="./index.html"> Explore </a>
+
+          <a class="header__link" href="./favorites.html"> Favorites </a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="recipe-details">
+        <div class="container">
+          <div class="recipe-details__content" id="recipe-details"></div>
+        </div>
+      </section>
+    </main>
+
+    <script type="module" src="/src/recipe.js"></script>
+  </body>
+</html>

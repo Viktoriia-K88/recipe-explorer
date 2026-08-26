@@ -6,6 +6,7 @@
 @use "./components/button";
 @use "./components/filter";
 @use "./components/recipe-card";
+@use "./components/recipe-skeleton";
 @use "./components/recipes-empty";
 @use "./components/search-form";
 
@@ -13,3 +14,4 @@
 @use "./layout/header";
 @use "./layout/hero";
 @use "./layout/recipes";
+@use "./layout/recipe-details";

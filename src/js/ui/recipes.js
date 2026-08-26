@@ -74,3 +74,36 @@ export function renderRecipes(container, recipes) {
 
   container.innerHTML = markup;
 }
+
+export function renderLoading(container) {
+  const skeletons = Array.from(
+    { length: 3 },
+    () => `
+      <div class="recipe-skeleton" aria-hidden="true">
+        <div class="recipe-skeleton__image"></div>
+
+        <div class="recipe-skeleton__line recipe-skeleton__line--title"></div>
+
+        <div class="recipe-skeleton__line recipe-skeleton__line--link"></div>
+      </div>
+    `,
+  ).join("");
+
+  container.innerHTML = skeletons;
+}
+
+export function renderError(container) {
+  container.innerHTML = `
+    <div class="recipes-empty">
+      <span class="recipes-empty__icon" aria-hidden="true">✦</span>
+
+      <h3 class="recipes-empty__title">
+        Something went wrong
+      </h3>
+
+      <p class="recipes-empty__text">
+        We couldn't load the recipes. Please try again.
+      </p>
+    </div>
+  `;
+}

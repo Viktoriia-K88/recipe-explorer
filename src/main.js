@@ -11,7 +11,9 @@ import {
 
 import { renderCategories, renderCuisines } from "./js/ui/filters";
 
-import { renderRecipes } from "./js/ui/recipes";
+import { renderError, renderLoading, renderRecipes } from "./js/ui/recipes";
+
+// DOM ELEMENTS
 
 const searchForm = document.querySelector(".search-form");
 const searchInput = document.querySelector("#recipe-search");
@@ -26,14 +28,42 @@ const recipesCount = document.querySelector("#recipes-count");
 const randomRecipeButton = document.querySelector("#random-recipe-button");
 const loadMoreButton = document.querySelector("#load-more-button");
 
+// CONSTANTS
+
 const RECIPES_PER_PAGE = 9;
 const DEFAULT_CATEGORY = "Seafood";
 
-// state
+// STATE
 
 let currentRecipes = [];
 let visibleRecipesCount = RECIPES_PER_PAGE;
 let isFeaturedView = false;
+
+// LOADING STATE
+
+function showLoadingState() {
+  recipesCount.textContent = "";
+  loadMoreButton.hidden = true;
+
+  renderLoading(recipesGrid);
+}
+
+// ERROR STATE
+
+function showErrorState(error) {
+  currentRecipes = [];
+  visibleRecipesCount = RECIPES_PER_PAGE;
+  isFeaturedView = false;
+
+  recipesCount.textContent = "";
+  loadMoreButton.hidden = true;
+
+  renderError(recipesGrid);
+
+  console.error(error);
+}
+
+// RENDER CURRENT RECIPES
 
 function updateRecipesView() {
   const visibleRecipes = currentRecipes.slice(0, visibleRecipesCount);
@@ -54,6 +84,8 @@ function updateRecipesView() {
   loadMoreButton.hidden = visibleRecipes.length >= currentRecipes.length;
 }
 
+// SET NEW RECIPES
+
 function setRecipes(recipes, featured = false) {
   currentRecipes = recipes;
   visibleRecipesCount = RECIPES_PER_PAGE;
@@ -62,17 +94,21 @@ function setRecipes(recipes, featured = false) {
   updateRecipesView();
 }
 
+// LOAD MORE
+
 function handleLoadMore() {
   visibleRecipesCount += RECIPES_PER_PAGE;
 
   updateRecipesView();
 }
 
-//filter recipes
+// FILTER RECIPES
 
 async function handleFiltersChange() {
   const category = categoryFilter.value;
   const cuisine = cuisineFilter.value;
+
+  showLoadingState();
 
   try {
     if (category && cuisine) {
@@ -114,11 +150,11 @@ async function handleFiltersChange() {
 
     setRecipes(featuredRecipes, true);
   } catch (error) {
-    console.error("Failed to filter recipes:", error);
+    showErrorState(error);
   }
 }
 
-// search recipes
+// SEARCH RECIPES
 
 async function handleSearch(event) {
   event.preventDefault();
@@ -129,49 +165,59 @@ async function handleSearch(event) {
     return;
   }
 
+  categoryFilter.value = "";
+  cuisineFilter.value = "";
+
+  showLoadingState();
+
+  recipesSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+
   try {
     const recipes = await searchMealsByName(query);
 
-    categoryFilter.value = "";
-    cuisineFilter.value = "";
-
     setRecipes(recipes);
-
-    recipesSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   } catch (error) {
-    console.error("Failed to search recipes:", error);
+    showErrorState(error);
   }
 }
 
+// RANDOM RECIPE
+
 async function handleRandomRecipe() {
+  searchInput.value = "";
+  categoryFilter.value = "";
+  cuisineFilter.value = "";
+
+  showLoadingState();
+
+  recipesSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start",
+  });
+
   try {
     const recipe = await getRandomMeal();
 
     if (!recipe) {
+      setRecipes([]);
+
       return;
     }
 
-    searchInput.value = "";
-    categoryFilter.value = "";
-    cuisineFilter.value = "";
-
     setRecipes([recipe]);
-
-    recipesSection.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-    });
   } catch (error) {
-    console.error("Failed to get random recipe:", error);
+    showErrorState(error);
   }
 }
 
-// initialize app
+// INITIALIZE APP
 
 async function init() {
+  showLoadingState();
+
   try {
     const [categories, cuisines, recipes] = await Promise.all([
       getCategories(),
@@ -186,11 +232,11 @@ async function init() {
 
     setRecipes(recipes);
   } catch (error) {
-    console.error("Failed to initialize Recipe Explorer:", error);
+    showErrorState(error);
   }
 }
 
-// events
+// EVENTS
 
 searchForm.addEventListener("submit", handleSearch);
 
@@ -201,5 +247,7 @@ cuisineFilter.addEventListener("change", handleFiltersChange);
 randomRecipeButton.addEventListener("click", handleRandomRecipe);
 
 loadMoreButton.addEventListener("click", handleLoadMore);
+
+// START APP
 
 init();

@@ -1,0 +1,46 @@
+@use "../abstracts/variables" as *;
+
+.recipe-skeleton {
+  min-width: 0;
+
+  &__image,
+  &__line {
+    background: linear-gradient(90deg, #e6e5df 25%, #f3f2ed 50%, #e6e5df 75%);
+
+    background-size: 200% 100%;
+    animation: skeleton-loading 1.4s infinite linear;
+  }
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+
+    border-radius: 18px;
+  }
+
+  &__line {
+    height: 18px;
+    border-radius: 6px;
+
+    &--title {
+      width: 70%;
+      margin-top: 18px;
+    }
+
+    &--link {
+      width: 28%;
+      height: 14px;
+      margin-top: 14px;
+    }
+  }
+}
+
+@keyframes skeleton-loading {
+  from {
+    background-position: 200% 0;
+  }
+
+  to {
+    background-position: -200% 0;
+  }
+}

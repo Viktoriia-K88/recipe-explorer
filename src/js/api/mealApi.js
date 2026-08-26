@@ -45,3 +45,9 @@ export async function getRandomMeal() {
 
   return data.meals?.[0] ?? null;
 }
+
+export async function getMealById(id) {
+  const data = await fetchData(`lookup.php?i=${encodeURIComponent(id)}`);
+
+  return data.meals?.[0] ?? null;
+}
