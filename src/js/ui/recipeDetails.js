@@ -1,3 +1,5 @@
+import { isFavorite } from "../storage/favorites";
+
 function getIngredients(recipe) {
   const ingredients = [];
 
@@ -31,6 +33,7 @@ export function renderRecipeDetails(container, recipe) {
     .join("");
 
   const cuisine = recipe.strArea || recipe.strCountry;
+  const favorite = isFavorite(recipe.idMeal);
 
   container.innerHTML = `
     <a class="recipe-details__back" href="./index.html">
@@ -60,6 +63,27 @@ export function renderRecipeDetails(container, recipe) {
         <p class="recipe-details__intro">
           Everything you need to prepare this recipe at home.
         </p>
+
+        <button
+          class="recipe-details__favorite${favorite ? " is-favorite" : ""}"
+          type="button"
+          data-meal-id="${recipe.idMeal}"
+          aria-pressed="${favorite}"
+          aria-label="${
+            favorite
+              ? `Remove ${recipe.strMeal} from favorites`
+              : `Add ${recipe.strMeal} to favorites`
+          }"
+        >
+          <span
+            class="recipe-details__favorite-icon"
+            aria-hidden="true"
+          ></span>
+
+          <span class="recipe-details__favorite-text">
+            ${favorite ? "Saved" : "Save recipe"}
+          </span>
+        </button>
       </div>
     </div>
 
@@ -79,9 +103,7 @@ export function renderRecipeDetails(container, recipe) {
           Instructions
         </h2>
 
-        <p class="recipe-details__instructions-text">
-          ${recipe.strInstructions}
-        </p>
+       <p class="recipe-details__instructions-text">${recipe.strInstructions.trim()}</p>
       </div>
     </div>
   `;

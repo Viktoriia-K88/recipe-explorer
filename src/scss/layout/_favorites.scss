@@ -1,0 +1,62 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
+
+.favorites {
+  padding-block: 72px 96px;
+
+  &__header {
+    margin-bottom: 48px;
+  }
+
+  &__title {
+    font-family: $font-family-heading;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.1;
+    color: $color-text-primary;
+  }
+
+  &__description {
+    margin-top: 12px;
+
+    font-size: 17px;
+    line-height: 1.6;
+    color: $color-text-secondary;
+  }
+
+  @include mobile {
+    padding-block: 48px 64px;
+
+    &__header {
+      margin-bottom: 36px;
+    }
+
+    &__title {
+      font-size: 32px;
+    }
+
+    &__description {
+      margin-top: 10px;
+
+      font-size: 15px;
+    }
+  }
+
+  @include mobile-s {
+    padding-block: 36px 56px;
+
+    &__header {
+      margin-bottom: 32px;
+    }
+
+    &__title {
+      font-size: 28px;
+    }
+
+    &__description {
+      margin-top: 8px;
+
+      font-size: 14px;
+    }
+  }
+}

@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/media" as *;
+@use "../abstracts/mixins" as *;
 
 .button {
   display: inline-flex;
@@ -23,6 +24,7 @@
 
   &--outline {
     color: $color-accent;
+
     background-color: transparent;
     border-color: $color-accent;
 
@@ -30,5 +32,12 @@
       color: $color-surface;
       background-color: $color-accent;
     }
+  }
+
+  @include mobile-s {
+    min-height: 44px;
+    padding-inline: 18px;
+
+    font-size: 14px;
   }
 }

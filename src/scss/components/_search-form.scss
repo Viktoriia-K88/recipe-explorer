@@ -1,11 +1,15 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/media" as *;
+@use "../abstracts/mixins" as *;
 
 .search-form {
   display: flex;
   align-items: center;
+
+  width: 100%;
   max-width: 560px;
   min-height: 60px;
+
   margin-top: 36px;
   padding: 6px;
 
@@ -71,16 +75,23 @@
   @include mobile-s {
     align-items: stretch;
     flex-direction: column;
-    gap: 8px;
+    gap: 6px;
 
-    padding: 8px;
+    margin-top: 24px;
+    padding: 6px;
 
     &__input {
-      min-height: 44px;
+      min-height: 38px;
+      padding-inline: 8px;
+
+      font-size: 14px;
     }
 
     &__button {
       width: 100%;
+      min-height: 40px;
+
+      font-size: 14px;
     }
   }
 }

@@ -24,7 +24,7 @@
 
   &__hero {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     gap: 64px;
   }
@@ -33,7 +33,6 @@
     overflow: hidden;
 
     aspect-ratio: 4 / 3;
-
     border-radius: 20px;
   }
 
@@ -59,9 +58,9 @@
 
   &__title {
     font-family: $font-family-heading;
-    font-size: 52px;
+    font-size: 42px;
     font-weight: 400;
-    line-height: 1.08;
+    line-height: 1.1;
     color: $color-text-primary;
   }
 
@@ -74,9 +73,51 @@
     color: $color-text-secondary;
   }
 
+  &__favorite {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    margin-top: 28px;
+    padding: 12px 18px;
+
+    font-size: 15px;
+    font-weight: 500;
+    color: $color-text-primary;
+
+    background-color: transparent;
+    border: 1px solid $color-border;
+    border-radius: 10px;
+
+    transition:
+      color 0.2s ease,
+      border-color 0.2s ease;
+
+    &:hover {
+      color: $color-accent;
+      border-color: $color-accent;
+    }
+
+    &.is-favorite {
+      color: $color-accent;
+      border-color: $color-accent;
+    }
+  }
+
+  &__favorite-icon {
+    width: 18px;
+    height: 18px;
+
+    background-color: currentColor;
+
+    mask: url("/src/assets/icons/heart.svg") center / contain no-repeat;
+
+    -webkit-mask: url("/src/assets/icons/heart.svg") center / contain no-repeat;
+  }
+
   &__body {
     display: grid;
-    grid-template-columns: minmax(260px, 0.7fr) minmax(0, 1.3fr);
+    grid-template-columns: 1fr 2fr;
     gap: 80px;
 
     margin-top: 72px;
@@ -86,17 +127,17 @@
   }
 
   &__heading {
-    margin-bottom: 24px;
+    margin-bottom: 16px;
 
     font-family: $font-family-heading;
-    font-size: 32px;
+    font-size: 30px;
     font-weight: 400;
     line-height: 1.2;
+    color: $color-text-primary;
   }
 
   &__ingredients-list {
     display: grid;
-    gap: 0;
   }
 
   &__ingredient {
@@ -120,6 +161,7 @@
     font-size: 16px;
     line-height: 1.8;
     color: $color-text-secondary;
+
     white-space: pre-line;
   }
 
@@ -129,16 +171,27 @@
     }
 
     &__title {
-      font-size: 44px;
+      font-size: 34px;
     }
 
     &__body {
       gap: 48px;
+
+      margin-top: 56px;
+      padding-top: 48px;
+    }
+
+    &__heading {
+      font-size: 28px;
     }
   }
 
   @include mobile {
     padding-block: 32px 64px;
+
+    &__back {
+      margin-bottom: 28px;
+    }
 
     &__hero,
     &__body {
@@ -149,15 +202,123 @@
       gap: 32px;
     }
 
+    &__media {
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
+    &__info {
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+    }
+
     &__title {
-      font-size: 38px;
+      font-size: 28px;
+    }
+
+    &__intro {
+      margin-top: 16px;
+
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    &__favorite {
+      margin-top: 24px;
     }
 
     &__body {
-      gap: 48px;
+      gap: 40px;
 
-      margin-top: 48px;
+      max-width: 520px;
+      margin: 48px auto 0;
       padding-top: 40px;
+    }
+
+    &__heading {
+      margin-bottom: 14px;
+
+      font-size: 26px;
+    }
+
+    &__instructions-text {
+      font-size: 15px;
+      line-height: 1.7;
+    }
+  }
+
+  @include mobile-s {
+    padding-block: 28px 56px;
+
+    &__back {
+      margin-bottom: 24px;
+
+      font-size: 14px;
+    }
+
+    &__hero {
+      gap: 28px;
+    }
+
+    &__media {
+      border-radius: 16px;
+    }
+
+    &__meta {
+      margin-bottom: 12px;
+
+      font-size: 13px;
+    }
+
+    &__title {
+      font-size: 24px;
+      line-height: 1.1;
+    }
+
+    &__intro {
+      margin-top: 16px;
+
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    &__favorite {
+      margin-top: 20px;
+      padding: 8px 14px;
+
+      font-size: 13px;
+    }
+
+    &__favorite-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    &__body {
+      gap: 36px;
+
+      margin-top: 40px;
+      padding-top: 36px;
+    }
+
+    &__heading {
+      margin-bottom: 12px;
+
+      font-size: 24px;
+    }
+
+    &__ingredient {
+      gap: 16px;
+      padding-block: 10px;
+
+      font-size: 14px;
+    }
+
+    &__instructions-text {
+      font-size: 14px;
+      line-height: 1.7;
     }
   }
 }

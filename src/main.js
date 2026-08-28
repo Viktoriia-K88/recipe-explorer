@@ -13,7 +13,7 @@ import { renderCategories, renderCuisines } from "./js/ui/filters";
 
 import { renderError, renderLoading, renderRecipes } from "./js/ui/recipes";
 
-// DOM ELEMENTS
+import { toggleFavorite } from "./js/storage/favorites";
 
 const searchForm = document.querySelector(".search-form");
 const searchInput = document.querySelector("#recipe-search");
@@ -26,20 +26,17 @@ const recipesGrid = document.querySelector("#recipes-grid");
 const recipesCount = document.querySelector("#recipes-count");
 
 const randomRecipeButton = document.querySelector("#random-recipe-button");
-const loadMoreButton = document.querySelector("#load-more-button");
 
-// CONSTANTS
+const loadMoreButton = document.querySelector("#load-more-button");
 
 const RECIPES_PER_PAGE = 9;
 const DEFAULT_CATEGORY = "Seafood";
 
-// STATE
+// state
 
 let currentRecipes = [];
 let visibleRecipesCount = RECIPES_PER_PAGE;
 let isFeaturedView = false;
-
-// LOADING STATE
 
 function showLoadingState() {
   recipesCount.textContent = "";
@@ -47,8 +44,6 @@ function showLoadingState() {
 
   renderLoading(recipesGrid);
 }
-
-// ERROR STATE
 
 function showErrorState(error) {
   currentRecipes = [];
@@ -63,7 +58,7 @@ function showErrorState(error) {
   console.error(error);
 }
 
-// RENDER CURRENT RECIPES
+// render current recipes
 
 function updateRecipesView() {
   const visibleRecipes = currentRecipes.slice(0, visibleRecipesCount);
@@ -84,8 +79,6 @@ function updateRecipesView() {
   loadMoreButton.hidden = visibleRecipes.length >= currentRecipes.length;
 }
 
-// SET NEW RECIPES
-
 function setRecipes(recipes, featured = false) {
   currentRecipes = recipes;
   visibleRecipesCount = RECIPES_PER_PAGE;
@@ -94,15 +87,42 @@ function setRecipes(recipes, featured = false) {
   updateRecipesView();
 }
 
-// LOAD MORE
-
 function handleLoadMore() {
   visibleRecipesCount += RECIPES_PER_PAGE;
 
   updateRecipesView();
 }
 
-// FILTER RECIPES
+// favorites
+
+function handleFavoriteClick(event) {
+  const favoriteButton = event.target.closest(".recipe-card__favorite");
+
+  if (!favoriteButton) {
+    return;
+  }
+
+  const recipeId = favoriteButton.dataset.mealId;
+
+  const isNowFavorite = toggleFavorite(recipeId);
+
+  favoriteButton.classList.toggle("is-favorite", isNowFavorite);
+
+  favoriteButton.setAttribute("aria-pressed", String(isNowFavorite));
+
+  const recipeCard = favoriteButton.closest(".recipe-card");
+
+  const recipeName = recipeCard
+    .querySelector(".recipe-card__title")
+    .textContent.trim();
+
+  favoriteButton.setAttribute(
+    "aria-label",
+    isNowFavorite
+      ? `Remove ${recipeName} from favorites`
+      : `Add ${recipeName} to favorites`,
+  );
+}
 
 async function handleFiltersChange() {
   const category = categoryFilter.value;
@@ -154,8 +174,6 @@ async function handleFiltersChange() {
   }
 }
 
-// SEARCH RECIPES
-
 async function handleSearch(event) {
   event.preventDefault();
 
@@ -184,8 +202,6 @@ async function handleSearch(event) {
   }
 }
 
-// RANDOM RECIPE
-
 async function handleRandomRecipe() {
   searchInput.value = "";
   categoryFilter.value = "";
@@ -213,7 +229,7 @@ async function handleRandomRecipe() {
   }
 }
 
-// INITIALIZE APP
+// initialize app
 
 async function init() {
   showLoadingState();
@@ -226,6 +242,7 @@ async function init() {
     ]);
 
     renderCategories(categoryFilter, categories);
+
     renderCuisines(cuisineFilter, cuisines);
 
     categoryFilter.value = DEFAULT_CATEGORY;
@@ -236,7 +253,7 @@ async function init() {
   }
 }
 
-// EVENTS
+// events
 
 searchForm.addEventListener("submit", handleSearch);
 
@@ -248,6 +265,12 @@ randomRecipeButton.addEventListener("click", handleRandomRecipe);
 
 loadMoreButton.addEventListener("click", handleLoadMore);
 
-// START APP
+recipesGrid.addEventListener("click", handleFavoriteClick);
+
+window.addEventListener("pageshow", () => {
+  if (currentRecipes.length > 0) {
+    updateRecipesView();
+  }
+});
 
 init();

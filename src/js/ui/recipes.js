@@ -1,4 +1,7 @@
+import { isFavorite } from "../storage/favorites";
 function createRecipeCard(recipe) {
+  const favorite = isFavorite(recipe.idMeal);
+
   return `
     <article class="recipe-card">
       <div class="recipe-card__media">
@@ -15,17 +18,22 @@ function createRecipeCard(recipe) {
           />
         </a>
 
-        <button
-          class="recipe-card__favorite"
-          type="button"
-          data-meal-id="${recipe.idMeal}"
-          aria-label="Add ${recipe.strMeal} to favorites"
-        >
-          <span
-            class="recipe-card__favorite-icon"
-            aria-hidden="true"
-          ></span>
-        </button>
+<button
+  class="recipe-card__favorite${favorite ? " is-favorite" : ""}"
+  type="button"
+  data-meal-id="${recipe.idMeal}"
+  aria-label="${
+    favorite
+      ? `Remove ${recipe.strMeal} from favorites`
+      : `Add ${recipe.strMeal} to favorites`
+  }"
+  aria-pressed="${favorite}"
+>
+  <span
+    class="recipe-card__favorite-icon"
+    aria-hidden="true"
+  ></span>
+</button>
       </div>
 
       <div class="recipe-card__body">

@@ -21,7 +21,7 @@
 
     font-family: $font-family-heading;
     font-weight: 400;
-    line-height: 1.15;
+    line-height: 1.2;
     letter-spacing: -0.01em;
     color: $color-text-primary;
   }
@@ -73,40 +73,69 @@
   }
 
   @include tablet {
-    padding-block: 64px 80px;
+    padding-block: 40px 72px;
+  }
 
+  @media (max-width: 900px) {
     &__grid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
+  @media (min-width: 768px) and (max-width: 900px) {
+    &__filters {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+
+      width: calc(50% - 12px);
+    }
+
+    .filter,
+    .filter__select {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
   @include mobile {
-    padding-block: 56px 64px;
+    padding-block: 32px 64px;
+
+    &__header,
+    &__toolbar,
+    &__grid {
+      width: 100%;
+      max-width: 520px;
+      margin-inline: auto;
+    }
 
     &__header {
       align-items: flex-start;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     &__toolbar {
       align-items: stretch;
       flex-direction: column;
-      gap: 16px;
+      gap: 14px;
 
-      margin-top: 28px;
+      margin-top: 24px;
     }
 
     &__filters {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+
+      width: 100%;
     }
 
     &__grid {
       grid-template-columns: 1fr;
       gap: 28px;
 
-      margin-top: 28px;
+      margin-top: 24px;
     }
 
     &__actions {
@@ -115,13 +144,52 @@
   }
 
   @include mobile-s {
-    &__filters {
-      grid-template-columns: 1fr;
+    padding-block: 28px 56px;
+
+    &__title {
+      font-size: 28px;
     }
 
-    .filter,
-    .filter__select {
-      width: 100%;
+    &__description {
+      margin-top: 6px;
+
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    &__header {
+      gap: 16px;
+    }
+
+    &__random-button,
+    &__load-more {
+      min-height: 38px;
+      padding-inline: 14px;
+
+      font-size: 13px;
+    }
+
+    &__toolbar {
+      margin-top: 20px;
+    }
+
+    &__filters {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    &__count {
+      font-size: 13px;
+    }
+
+    &__grid {
+      gap: 24px;
+
+      margin-top: 22px;
+    }
+
+    &__actions {
+      margin-top: 32px;
     }
   }
 }

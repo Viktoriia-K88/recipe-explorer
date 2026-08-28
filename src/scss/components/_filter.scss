@@ -1,8 +1,8 @@
 @use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
 
 .filter {
   position: relative;
-
   display: inline-flex;
 
   &__select {
@@ -24,6 +24,24 @@
 
     &:focus {
       border-color: $color-accent;
+    }
+  }
+
+  @include mobile {
+    width: 100%;
+
+    &__select {
+      width: 100%;
+      min-width: 0;
+    }
+  }
+
+  @include mobile-s {
+    &__select {
+      min-height: 44px;
+      padding-inline: 14px 36px;
+
+      font-size: 14px;
     }
   }
 }
