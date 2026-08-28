@@ -22,11 +22,11 @@ The project is built with Vanilla JavaScript and uses TheMealDB API for recipe d
 
 ### Favorites — Mobile
 
-![Recipe Explorer favorites on mobile](screenshots/favorites-mobile.jpg)
+<img src="screenshots/favorites-mobile.jpg" alt="Recipe Explorer favorites on mobile" width="380">
 
 ### Recipe Details — Mobile
 
-![Recipe details on mobile](screenshots/recipe-details-mobile.jpg)
+<img src="screenshots/recipe-details-mobile.jpg" alt="Recipe details on mobile" width="380">
 
 ## Features
 
