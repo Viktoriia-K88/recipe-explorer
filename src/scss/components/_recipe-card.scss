@@ -13,11 +13,13 @@
     aspect-ratio: 4 / 3;
 
     background-color: $color-surface;
+
     border-radius: 18px;
   }
 
   &__image-link {
     display: block;
+
     width: 100%;
     height: 100%;
   }
@@ -27,8 +29,6 @@
     height: 100%;
 
     object-fit: cover;
-
-    transition: transform 0.3s ease;
   }
 
   &__favorite {
@@ -41,7 +41,8 @@
 
     color: $color-text-primary;
 
-    background-color: rgba($color-surface, 0.92);
+    background-color: rgba($color-surface, 0.9);
+
     border-radius: 50%;
 
     transition:
@@ -59,12 +60,13 @@
   }
 
   &__favorite-icon {
-    width: 21px;
-    height: 21px;
+    width: 20px;
+    height: 20px;
 
     background-color: currentColor;
 
     mask: url("/src/assets/icons/heart.svg") center / contain no-repeat;
+
     -webkit-mask: url("/src/assets/icons/heart.svg") center / contain no-repeat;
   }
 
@@ -72,21 +74,19 @@
     padding-top: 18px;
   }
 
-  &__meta {
-    font-size: 13px;
-    font-weight: 500;
-    line-height: 1.4;
-    letter-spacing: 0.04em;
-    color: $color-text-secondary;
-  }
-
   &__title {
-    margin-top: 7px;
-
-    font-size: 21px;
+    font-size: 20px;
     font-weight: 600;
     line-height: 1.3;
     color: $color-text-primary;
+
+    a {
+      transition: color 0.2s ease;
+
+      @include hover {
+        color: $color-accent;
+      }
+    }
   }
 
   &__link {
@@ -111,12 +111,6 @@
     }
   }
 
-  @media (hover: hover) {
-    &:hover &__image {
-      transform: scale(1);
-    }
-  }
-
   @include mobile-s {
     &__media {
       border-radius: 14px;
@@ -130,8 +124,8 @@
     }
 
     &__favorite-icon {
-      width: 19px;
-      height: 19px;
+      width: 18px;
+      height: 18px;
     }
 
     &__body {
@@ -139,10 +133,7 @@
     }
 
     &__title {
-      margin-top: 6px;
-
       font-size: 18px;
-      line-height: 1.3;
     }
 
     &__link {

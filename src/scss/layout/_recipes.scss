@@ -1,6 +1,5 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/media" as *;
-@use "../abstracts/mixins" as *;
 
 .recipes {
   padding-block: 56px 96px;
@@ -17,12 +16,15 @@
   }
 
   &__title {
-    @include fluid-text(40, 32);
-
     font-family: $font-family-heading;
+
+    font-size: clamp(32px, 3vw, 40px);
+
     font-weight: 400;
     line-height: 1.2;
+
     letter-spacing: -0.01em;
+
     color: $color-text-primary;
   }
 
@@ -30,6 +32,7 @@
     margin-top: 8px;
 
     font-size: 16px;
+
     color: $color-text-secondary;
   }
 
@@ -39,7 +42,7 @@
     justify-content: space-between;
     gap: 24px;
 
-    margin-top: 34px;
+    margin-top: 32px;
   }
 
   &__filters {
@@ -50,6 +53,7 @@
 
   &__count {
     font-size: 14px;
+
     color: $color-text-secondary;
 
     &:empty {
@@ -59,7 +63,9 @@
 
   &__grid {
     display: grid;
+
     grid-template-columns: repeat(3, minmax(0, 1fr));
+
     gap: 32px 24px;
 
     margin-top: 32px;
@@ -67,6 +73,7 @@
 
   &__actions {
     display: flex;
+
     justify-content: center;
 
     margin-top: 48px;
@@ -85,7 +92,9 @@
   @media (min-width: 768px) and (max-width: 900px) {
     &__filters {
       display: grid;
+
       grid-template-columns: 1fr 1fr;
+
       gap: 12px;
 
       width: calc(50% - 12px);
@@ -106,18 +115,21 @@
     &__grid {
       width: 100%;
       max-width: 520px;
+
       margin-inline: auto;
     }
 
     &__header {
       align-items: flex-start;
       flex-direction: column;
+
       gap: 16px;
     }
 
     &__toolbar {
       align-items: stretch;
       flex-direction: column;
+
       gap: 14px;
 
       margin-top: 24px;
@@ -125,7 +137,9 @@
 
     &__filters {
       display: grid;
+
       grid-template-columns: 1fr 1fr;
+
       gap: 16px;
 
       width: 100%;
@@ -133,6 +147,7 @@
 
     &__grid {
       grid-template-columns: 1fr;
+
       gap: 28px;
 
       margin-top: 24px;
@@ -161,7 +176,13 @@
       gap: 16px;
     }
 
-    &__random-button,
+    &__random-button {
+      min-height: 40px;
+      padding-inline: 16px;
+
+      font-size: 14px;
+    }
+
     &__load-more {
       min-height: 38px;
       padding-inline: 14px;
@@ -175,6 +196,7 @@
 
     &__filters {
       grid-template-columns: 1fr;
+
       gap: 10px;
     }
 

@@ -1,6 +1,7 @@
 import "./scss/main.scss";
 
 import { getMealById } from "./js/api/mealApi";
+
 import { getFavoriteIds, toggleFavorite } from "./js/storage/favorites";
 
 import { renderError, renderLoading, renderRecipes } from "./js/ui/recipes";
@@ -8,32 +9,51 @@ import { renderError, renderLoading, renderRecipes } from "./js/ui/recipes";
 const favoritesGrid = document.querySelector("#favorites-grid");
 
 function renderFavoritesEmpty() {
-  favoritesGrid.innerHTML = `
-    <div class="recipes-empty">
-      <span
-        class="recipes-empty__icon"
-        aria-hidden="true"
-      >
-        ✦
-      </span>
+  favoritesGrid.replaceChildren();
 
-      <h2 class="recipes-empty__title">
-        No favorites yet
-      </h2>
+  const emptyState = document.createElement("div");
 
-      <p class="recipes-empty__text">
-        Save recipes you love and they'll appear here.
-      </p>
+  emptyState.className = "recipes-empty";
 
-      <a
-        class="recipes-empty__link"
-        href="./index.html"
-      >
-        Explore recipes
-        <span aria-hidden="true">→</span>
-      </a>
-    </div>
-  `;
+  const icon = document.createElement("span");
+
+  icon.className = "recipes-empty__icon";
+
+  icon.setAttribute("aria-hidden", "true");
+
+  icon.textContent = "✦";
+
+  const title = document.createElement("h2");
+
+  title.className = "recipes-empty__title";
+
+  title.textContent = "No favorites yet";
+
+  const text = document.createElement("p");
+
+  text.className = "recipes-empty__text";
+
+  text.textContent = "Save recipes you love and they'll appear here.";
+
+  const link = document.createElement("a");
+
+  link.className = "recipes-empty__link";
+
+  link.href = "./index.html";
+
+  link.append(document.createTextNode("Explore recipes "));
+
+  const arrow = document.createElement("span");
+
+  arrow.setAttribute("aria-hidden", "true");
+
+  arrow.textContent = "→";
+
+  link.append(arrow);
+
+  emptyState.append(icon, title, text, link);
+
+  favoritesGrid.append(emptyState);
 }
 
 async function loadFavorites() {
@@ -51,6 +71,12 @@ async function loadFavorites() {
     const recipes = await Promise.all(favoriteIds.map((id) => getMealById(id)));
 
     const validRecipes = recipes.filter(Boolean);
+
+    if (validRecipes.length === 0) {
+      renderFavoritesEmpty();
+
+      return;
+    }
 
     renderRecipes(favoritesGrid, validRecipes);
   } catch (error) {
@@ -75,5 +101,11 @@ function handleFavoriteClick(event) {
 }
 
 favoritesGrid.addEventListener("click", handleFavoriteClick);
+
+window.addEventListener("pageshow", (event) => {
+  if (event.persisted) {
+    loadFavorites();
+  }
+});
 
 loadFavorites();

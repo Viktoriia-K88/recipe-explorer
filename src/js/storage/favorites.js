@@ -10,7 +10,11 @@ export function getFavoriteIds() {
   try {
     const favoriteIds = JSON.parse(savedFavorites);
 
-    return Array.isArray(favoriteIds) ? favoriteIds : [];
+    if (!Array.isArray(favoriteIds)) {
+      return [];
+    }
+
+    return favoriteIds.map(String);
   } catch {
     return [];
   }
@@ -26,6 +30,7 @@ export function isFavorite(id) {
 
 export function toggleFavorite(id) {
   const recipeId = String(id);
+
   const favoriteIds = getFavoriteIds();
 
   const alreadyFavorite = favoriteIds.includes(recipeId);

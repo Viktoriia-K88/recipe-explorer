@@ -1,4 +1,4 @@
-@use "../abstracts/variables" as *;
+@use "../abstracts/media" as *;
 
 .recipe-skeleton {
   min-width: 0;
@@ -8,11 +8,13 @@
     background: linear-gradient(90deg, #e6e5df 25%, #f3f2ed 50%, #e6e5df 75%);
 
     background-size: 200% 100%;
-    animation: skeleton-loading 1.4s infinite linear;
+
+    animation: skeleton-loading 1.5s infinite linear;
   }
 
   &__image {
     width: 100%;
+
     aspect-ratio: 4 / 3;
 
     border-radius: 18px;
@@ -20,17 +22,26 @@
 
   &__line {
     height: 18px;
+
     border-radius: 6px;
 
     &--title {
       width: 70%;
+
       margin-top: 18px;
     }
 
     &--link {
       width: 28%;
       height: 14px;
+
       margin-top: 14px;
+    }
+  }
+
+  @include mobile-s {
+    &__image {
+      border-radius: 14px;
     }
   }
 }

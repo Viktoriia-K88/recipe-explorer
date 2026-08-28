@@ -5,6 +5,7 @@ function getIngredients(recipe) {
 
   for (let i = 1; i <= 20; i += 1) {
     const ingredient = recipe[`strIngredient${i}`];
+
     const measure = recipe[`strMeasure${i}`];
 
     if (ingredient && ingredient.trim()) {
@@ -21,90 +22,180 @@ function getIngredients(recipe) {
 export function renderRecipeDetails(container, recipe) {
   const ingredients = getIngredients(recipe);
 
-  const ingredientsMarkup = ingredients
-    .map(
-      ({ ingredient, measure }) => `
-        <li class="recipe-details__ingredient">
-          <span>${ingredient}</span>
-          <span>${measure}</span>
-        </li>
-      `,
-    )
-    .join("");
-
   const cuisine = recipe.strArea || recipe.strCountry;
+
   const favorite = isFavorite(recipe.idMeal);
 
-  container.innerHTML = `
-    <a class="recipe-details__back" href="./index.html">
-      <span aria-hidden="true">←</span>
-      Back to recipes
-    </a>
+  const instructions =
+    recipe.strInstructions?.trim() || "Instructions are not available.";
 
-    <div class="recipe-details__hero">
-      <div class="recipe-details__media">
-        <img
-          class="recipe-details__image"
-          src="${recipe.strMealThumb}"
-          alt="${recipe.strMeal}"
-        />
-      </div>
+  container.replaceChildren();
 
-      <div class="recipe-details__info">
-        <p class="recipe-details__meta">
-          ${recipe.strCategory}
-          ${cuisine ? ` · ${cuisine}` : ""}
-        </p>
+  // back link
 
-        <h1 class="recipe-details__title">
-          ${recipe.strMeal}
-        </h1>
+  const backLink = document.createElement("a");
 
-        <p class="recipe-details__intro">
-          Everything you need to prepare this recipe at home.
-        </p>
+  backLink.className = "recipe-details__back";
 
-        <button
-          class="recipe-details__favorite${favorite ? " is-favorite" : ""}"
-          type="button"
-          data-meal-id="${recipe.idMeal}"
-          aria-pressed="${favorite}"
-          aria-label="${
-            favorite
-              ? `Remove ${recipe.strMeal} from favorites`
-              : `Add ${recipe.strMeal} to favorites`
-          }"
-        >
-          <span
-            class="recipe-details__favorite-icon"
-            aria-hidden="true"
-          ></span>
+  backLink.href = "./index.html";
 
-          <span class="recipe-details__favorite-text">
-            ${favorite ? "Saved" : "Save recipe"}
-          </span>
-        </button>
-      </div>
-    </div>
+  const backArrow = document.createElement("span");
 
-    <div class="recipe-details__body">
-      <div class="recipe-details__ingredients">
-        <h2 class="recipe-details__heading">
-          Ingredients
-        </h2>
+  backArrow.setAttribute("aria-hidden", "true");
 
-        <ul class="recipe-details__ingredients-list">
-          ${ingredientsMarkup}
-        </ul>
-      </div>
+  backArrow.textContent = "←";
 
-      <div class="recipe-details__instructions">
-        <h2 class="recipe-details__heading">
-          Instructions
-        </h2>
+  backLink.append(backArrow, document.createTextNode(" Back to recipes"));
 
-       <p class="recipe-details__instructions-text">${recipe.strInstructions.trim()}</p>
-      </div>
-    </div>
-  `;
+  // hero
+
+  const hero = document.createElement("div");
+
+  hero.className = "recipe-details__hero";
+
+  const media = document.createElement("div");
+
+  media.className = "recipe-details__media";
+
+  const image = document.createElement("img");
+
+  image.className = "recipe-details__image";
+
+  image.src = recipe.strMealThumb;
+  image.alt = recipe.strMeal;
+
+  media.append(image);
+
+  // info
+
+  const info = document.createElement("div");
+
+  info.className = "recipe-details__info";
+
+  const meta = document.createElement("p");
+
+  meta.className = "recipe-details__meta";
+
+  meta.textContent = cuisine
+    ? `${recipe.strCategory} · ${cuisine}`
+    : recipe.strCategory;
+
+  const title = document.createElement("h1");
+
+  title.className = "recipe-details__title";
+
+  title.textContent = recipe.strMeal;
+
+  const intro = document.createElement("p");
+
+  intro.className = "recipe-details__intro";
+
+  intro.textContent = "Everything you need to prepare this recipe at home.";
+
+  // favorite button
+
+  const favoriteButton = document.createElement("button");
+
+  favoriteButton.className = "recipe-details__favorite";
+
+  favoriteButton.type = "button";
+
+  favoriteButton.dataset.mealId = recipe.idMeal;
+
+  favoriteButton.setAttribute("aria-pressed", String(favorite));
+
+  favoriteButton.setAttribute(
+    "aria-label",
+    favorite
+      ? `Remove ${recipe.strMeal} from favorites`
+      : `Add ${recipe.strMeal} to favorites`,
+  );
+
+  if (favorite) {
+    favoriteButton.classList.add("is-favorite");
+  }
+
+  const favoriteIcon = document.createElement("span");
+
+  favoriteIcon.className = "recipe-details__favorite-icon";
+
+  favoriteIcon.setAttribute("aria-hidden", "true");
+
+  const favoriteText = document.createElement("span");
+
+  favoriteText.className = "recipe-details__favorite-text";
+
+  favoriteText.textContent = favorite ? "Saved" : "Save recipe";
+
+  favoriteButton.append(favoriteIcon, favoriteText);
+
+  info.append(meta, title, intro, favoriteButton);
+
+  hero.append(media, info);
+
+  // body
+
+  const body = document.createElement("div");
+
+  body.className = "recipe-details__body";
+
+  // ingredients
+
+  const ingredientsSection = document.createElement("div");
+
+  ingredientsSection.className = "recipe-details__ingredients";
+
+  const ingredientsTitle = document.createElement("h2");
+
+  ingredientsTitle.className = "recipe-details__heading";
+
+  ingredientsTitle.textContent = "Ingredients";
+
+  const ingredientsList = document.createElement("ul");
+
+  ingredientsList.className = "recipe-details__ingredients-list";
+
+  ingredients.forEach(({ ingredient, measure }) => {
+    const item = document.createElement("li");
+
+    item.className = "recipe-details__ingredient";
+
+    const ingredientName = document.createElement("span");
+
+    ingredientName.textContent = ingredient;
+
+    const ingredientMeasure = document.createElement("span");
+
+    ingredientMeasure.textContent = measure;
+
+    item.append(ingredientName, ingredientMeasure);
+
+    ingredientsList.append(item);
+  });
+
+  ingredientsSection.append(ingredientsTitle, ingredientsList);
+
+  // instructions
+
+  const instructionsSection = document.createElement("div");
+
+  instructionsSection.className = "recipe-details__instructions";
+
+  const instructionsTitle = document.createElement("h2");
+
+  instructionsTitle.className = "recipe-details__heading";
+
+  instructionsTitle.textContent = "Instructions";
+
+  const instructionsText = document.createElement("p");
+
+  instructionsText.className = "recipe-details__instructions-text";
+
+  instructionsText.textContent = instructions;
+
+  instructionsSection.append(instructionsTitle, instructionsText);
+
+  body.append(ingredientsSection, instructionsSection);
+
+  container.append(backLink, hero, body);
 }

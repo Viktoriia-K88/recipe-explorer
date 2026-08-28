@@ -11,3 +11,9 @@ body {
 
   background-color: $color-background;
 }
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid $color-accent;
+  outline-offset: 3px;
+}

@@ -1,21 +1,23 @@
-export function renderCategories(selectElement, categories) {
-  const options = categories
-    .map(
-      (category) =>
-        `<option value="${category.strCategory}">${category.strCategory}</option>`,
-    )
-    .join("");
+function appendOptions(selectElement, items, valueKey) {
+  const fragment = document.createDocumentFragment();
 
-  selectElement.insertAdjacentHTML("beforeend", options);
+  items.forEach((item) => {
+    const option = document.createElement("option");
+    const value = item[valueKey] || "";
+
+    option.value = value;
+    option.textContent = value;
+
+    fragment.append(option);
+  });
+
+  selectElement.append(fragment);
+}
+
+export function renderCategories(selectElement, categories) {
+  appendOptions(selectElement, categories, "strCategory");
 }
 
 export function renderCuisines(selectElement, cuisines) {
-  const options = cuisines
-    .map(
-      (cuisine) =>
-        `<option value="${cuisine.strArea}">${cuisine.strArea}</option>`,
-    )
-    .join("");
-
-  selectElement.insertAdjacentHTML("beforeend", options);
+  appendOptions(selectElement, cuisines, "strArea");
 }

@@ -1,5 +1,6 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/media" as *;
+@use "../abstracts/mixins" as *;
 
 .recipes-empty {
   grid-column: 1 / -1;
@@ -45,6 +46,16 @@
     font-size: 15px;
     font-weight: 500;
     color: $color-accent;
+
+    span {
+      transition: transform 0.2s ease;
+    }
+
+    @include hover {
+      span {
+        transform: translateX(3px);
+      }
+    }
   }
 
   @include mobile {
