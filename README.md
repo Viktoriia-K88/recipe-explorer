@@ -6,6 +6,10 @@ Users can search for recipes, filter them by category and cuisine, view detailed
 
 The project is built with Vanilla JavaScript and uses TheMealDB API for recipe data.
 
+## Live Demo
+
+[View live website](https://viktoriia-k88.github.io/recipe-explorer/)
+
 ## Screenshots
 
 ### Home
