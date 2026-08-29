@@ -2,7 +2,7 @@
 
 Recipe Explorer is a responsive web application for discovering recipes from around the world.
 
-Users can search for recipes, filter them by category and cuisine, view detailed cooking instructions, discover a random recipe, and save favorites for later.
+Users can search for recipes, filter them by category and cuisine, view detailed cooking instructions, discover random recipes, and save favorites for later.
 
 The project is built with Vanilla JavaScript and uses TheMealDB API for recipe data.
 
@@ -57,12 +57,14 @@ The project is built with Vanilla JavaScript and uses TheMealDB API for recipe d
 - localStorage
 - Vitest
 - jsdom
+- GitHub Pages
+- GitHub Actions
 
 ## Pages
 
 ### Explore
 
-The main page allows users to search recipes, apply filters, discover random recipes, and browse recipe cards.
+The main page allows users to search recipes, apply category and cuisine filters, discover random recipes, and browse recipe cards.
 
 ### Recipe Details
 
@@ -85,14 +87,14 @@ Recipe data is provided by [TheMealDB](https://www.themealdb.com/api.php).
 The application uses API endpoints for:
 
 - searching recipes by name
-- filtering by category
-- filtering by cuisine
+- filtering recipes by category
+- filtering recipes by cuisine
 - retrieving recipe details by ID
 - retrieving a random recipe
 
 ## Testing
 
-The project includes unit tests for the Favorites storage logic using Vitest and jsdom.
+The project includes unit tests for the favorites storage logic using Vitest and jsdom.
 
 The tests cover:
 
@@ -112,7 +114,7 @@ npm test
 Clone the repository:
 
 ```bash
-git clone https://github.com/Viktoriia-K88/recipe-explorer
+git clone https://github.com/Viktoriia-K88/recipe-explorer.git
 ```
 
 Open the project directory:
@@ -143,25 +145,14 @@ npm run build
 
 ```text
 recipe-explorer/
-├── public/
-├── screenshots/
+├── screenshots/          # README preview images
 ├── src/
-│   ├── assets/
-│   ├── js/
-│   │   ├── api/
-│   │   ├── storage/
-│   │   └── ui/
-│   ├── scss/
-│   │   ├── abstracts/
-│   │   ├── base/
-│   │   ├── components/
-│   │   └── layout/
-│   ├── favorites.js
-│   ├── main.js
-│   └── recipe.js
-├── favorites.html
-├── index.html
-├── recipe.html
-├── package.json
+│   ├── assets/           # Images and icons
+│   ├── js/               # API, storage, and UI logic
+│   └── scss/             # Application styles
+├── index.html            # Explore page
+├── favorites.html        # Favorites page
+├── recipe.html           # Recipe details page
+├── vite.config.js        # Vite configuration
 └── README.md
 ```
