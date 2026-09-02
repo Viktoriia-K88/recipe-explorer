@@ -2,6 +2,7 @@
 @use "../abstracts/media" as *;
 
 .favorites {
+  min-height: calc(100svh - 76px);
   padding-block: 72px 96px;
 
   &__header {
@@ -18,13 +19,13 @@
 
   &__description {
     margin-top: 12px;
-
     font-size: 17px;
     line-height: 1.6;
     color: $color-text-secondary;
   }
 
   @include mobile {
+    min-height: calc(100svh - 68px);
     padding-block: 48px 64px;
 
     &__header {
@@ -37,12 +38,12 @@
 
     &__description {
       margin-top: 10px;
-
       font-size: 15px;
     }
   }
 
   @include mobile-s {
+    min-height: calc(100svh - 62px);
     padding-block: 36px 56px;
 
     &__header {
@@ -55,7 +56,6 @@
 
     &__description {
       margin-top: 8px;
-
       font-size: 14px;
     }
   }
