@@ -2,7 +2,16 @@
 @use "../abstracts/media" as *;
 
 .favorites {
+  min-height: calc(100svh - 76px);
+  display: flex;
+  flex-direction: column;
   padding-block: 72px 96px;
+
+  > .container {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    flex: 1;
+  }
 
   &__header {
     margin-bottom: 48px;
@@ -18,13 +27,23 @@
 
   &__description {
     margin-top: 12px;
-
     font-size: 17px;
     line-height: 1.6;
     color: $color-text-secondary;
   }
 
+  &__grid:has(.recipes-empty) {
+    display: grid;
+    place-items: center;
+    margin-top: 0;
+
+    .recipes-empty {
+      padding-block: 0;
+    }
+  }
+
   @include mobile {
+    min-height: calc(100svh - 68px);
     padding-block: 48px 64px;
 
     &__header {
@@ -37,17 +56,12 @@
 
     &__description {
       margin-top: 10px;
-
       font-size: 15px;
     }
   }
 
   @include mobile-s {
-    padding-block: 36px 56px;
-
-    &__header {
-      margin-bottom: 32px;
-    }
+    min-height: calc(100svh - 62px);
 
     &__title {
       font-size: 28px;
@@ -55,7 +69,6 @@
 
     &__description {
       margin-top: 8px;
-
       font-size: 14px;
     }
   }
